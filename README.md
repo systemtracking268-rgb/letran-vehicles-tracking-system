@@ -1,5 +1,7 @@
 # Colegio de San Juan de Letran Vehicles
 
+![cdDemo](./msm-app/src/components/dashboard/images/screenDemo.png)
+
 ### This website is equipped with orange-pi for data gathering and api(not updated yet) for data storage
 
 # Set Up
