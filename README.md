@@ -16,6 +16,8 @@
 
 1. ctrl + j
 2. type "cd msm-app"
+```html
+<img src="./msm-app/src/components/dashboard/images/cdDemo.png" width="500"/>
 ![cdDemo](./msm-app/src/components/dashboard/images/cdDemo.png)
 3. Run the server.js "nodemon server/server.js"
 ![serverDemo](./msm-app/src/components/dashboard/images/serverDemo.png)
