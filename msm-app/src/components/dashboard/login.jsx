@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import User from "./user";
+import Admin from './admin';
 import Logo from "./images/logo.png";
 
 function Login() {
   const [showRegister, setShowRegister] = useState(false);
-  const [currentView, setCurrentView] = useState('login'); // 'login' | 'user'
+  const [currentView, setCurrentView] = useState(''); // 'login' | 'user'
 
   const handleRegisterClick = (e) => {
     e.preventDefault();
@@ -17,14 +18,18 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Simulate login logic
-    setCurrentView('user');
+    if (username.trim().toLowerCase() === 'admin') {
+      setCurrentView('admin');
+    } else {
+      setCurrentView('user');
   };
 
-  // 🧾 Show user dashboard
-  if (currentView === 'user') {
-    return <User />;
-  }
+}
+
+
+  // Show different views
+  if (currentView === 'user') return <User />;
+  if (currentView === 'admin') return <Admin />;
 
   // 🔐 Login/Register form
   return (
@@ -41,6 +46,7 @@ function Login() {
           <input
             type="text"
             placeholder="Username"
+            onChange={(e) => setCurrentView(e.target.value)}
             className="h-10 w-full border border-gray-300 text-sm rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
