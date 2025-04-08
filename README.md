@@ -8,7 +8,7 @@
 
 1. Clone or Download the repository
 2. Extract the files 
-3. Open Android Studio
+3. Open Visual Studio Code
 4. Select the folder "CDSJDLV"
 
 
