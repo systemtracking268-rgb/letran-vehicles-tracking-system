@@ -16,17 +16,20 @@
 
 1. ctrl + j
 2. type "cd msm-app"
-```html
-<img src="./msm-app/src/components/dashboard/images/cdDemo.png" width="500"/>
+
 ![cdDemo](./msm-app/src/components/dashboard/images/cdDemo.png)
+
 3. Run the server.js "nodemon server/server.js"
+
 ![serverDemo](./msm-app/src/components/dashboard/images/serverDemo.png)
 
 ### Running the web app
 1. create new terminal "ctrl + shift + ,"
 2. type "cd msm-app" (like what you did earlier to the server)
 3. Run the web app "npm run dev"
+
 ![runDevDemo](./msm-app/src/components/dashboard/images/runDevDemo.png)
+
 4. ctrl + click the link "http://localhost:5173" or type localhost:5173 on your browser
 
 
