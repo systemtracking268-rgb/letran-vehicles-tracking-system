@@ -14,7 +14,7 @@
 
 ## Now we are going to use terminal, follow these steps accordingly 
 
-### Running the server first, this actually has no connection to the project, since orange-pi is not yet ready
+#### Running the server first, (at this time server serve as an experimental since we don't have the api to begin with)
 
 1. ctrl + j
 2. type "cd msm-app"
