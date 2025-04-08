@@ -11,7 +11,6 @@ function Login() {
     e.preventDefault();
     setShowRegister(true);
   };
-
   const handleBackToLogin = () => {
     setShowRegister(false);
   };
