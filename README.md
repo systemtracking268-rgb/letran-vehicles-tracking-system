@@ -10,22 +10,23 @@
 2. Extract the files 
 3. Open Visual Studio Code
 4. Select the folder "CDSJDLV"
+5. Install Node.Js 
 
 
-## Now we are going to use terminal, follow these steps accordingly 
-
+### Now we are going to use terminal, follow these steps accordingly 
 #### Running the server first, (at this time server serve as an experimental since we don't have the api to begin with)
 
 1. ctrl + j
-2. type "cd msm-app"
+2. npm install (to install all dependencies)
+3. type "cd msm-app"
 
 ![cdDemo](./msm-app/src/components/dashboard/images/cdDemo.png)
 
-3. Run the server.js "nodemon server/server.js"
+4. Run the server.js remove the "", "nodemon server/server.js" 
 
 ![serverDemo](./msm-app/src/components/dashboard/images/serverDemo.png)
 
-### Running the web app
+#### Running the web app
 1. create new terminal "ctrl + shift + ,"
 2. type "cd msm-app" (like what you did earlier to the server)
 3. Run the web app "npm run dev"
