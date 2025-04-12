@@ -6,17 +6,26 @@
 
 # Download & Extraction
 
-1. Clone or Download the repository
-2. Extract the files 
-3. Open Visual Studio Code
-4. Select the folder "CDSJDLV"
-5. Install Node.Js 
+1. Install Node.Js 
+    * ```bash
+            https://nodejs.org/en
+        ```
+2. Clone or Download the repository
+3. Extract the files
+4. Once extracted find the root folder then drag it outside
+    * CDSJDLV-master > CDSJDLV-master(drag this one out)
+5. Open Visual Studio Code
+6. Select the folder "CDSJDLV-master" the folder you drag outside
 
 
 # Set Up
 1. Running the server
     * ctrl + j
-    * Install all dependencies first
+    * install nodemon
+        ```bash
+            npm i -g nodemon
+        ```
+    * Install all dependencies
         ```bash
             npm install
         ```
@@ -46,6 +55,13 @@
             http://localhost:5173
         ```
 
+# Note
+1. Make sure you installed Node.Js
+2. if npm is error you must first bypass your system using poweshell
+    * search powershell in your laptop then type this
+        ```bash
+            Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+        ```
 
 
 
