@@ -4,7 +4,7 @@
 
 ### This website is equipped with orange-pi for data gathering and api(not updated yet) for data storage
 
-# Set Up
+# Download & Extraction
 
 1. Clone or Download the repository
 2. Extract the files 
@@ -13,8 +13,7 @@
 5. Install Node.Js 
 
 
-### Now we are going to use terminal, follow these steps accordingly 
-#### Running the server first, (at this time server serve as an experimental since we don't have the api to begin with)
+# Set Up
 
 1. ctrl + j
 2. Install all dependencies first
@@ -25,12 +24,10 @@ npm install
 ```bash
 cd msm-app
 ```
-
-![cdDemo](./msm-app/src/components/dashboard/images/cdDemo.png)
-
-4. Run the server.js remove the "", "nodemon server/server.js" 
-
-![serverDemo](./msm-app/src/components/dashboard/images/serverDemo.png)
+4. Run the server.js 
+```bash
+nodemon server/server.js
+``` 
 
 #### Running the web app
 1. create new terminal "ctrl + shift + ,"
