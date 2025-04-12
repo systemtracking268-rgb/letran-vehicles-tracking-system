@@ -17,8 +17,14 @@
 #### Running the server first, (at this time server serve as an experimental since we don't have the api to begin with)
 
 1. ctrl + j
-2. npm install (to install all dependencies)
-3. type "cd msm-app"
+2. Install all dependencies first
+```bash
+npm install
+```
+3. Go to msm-app folder
+```bash
+cd msm-app
+```
 
 ![cdDemo](./msm-app/src/components/dashboard/images/cdDemo.png)
 
