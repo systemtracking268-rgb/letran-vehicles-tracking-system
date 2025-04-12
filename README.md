@@ -14,29 +14,38 @@
 
 
 # Set Up
+1. Running the server
+    * ctrl + j
+    * Install all dependencies first
+        ```bash
+            npm install
+        ```
+    * Go to msm-app folder
+        ```bash
+            cd msm-app
+        ```
+    * Run the server.js
+        ```bash
+            nodemon server/server.js
+        ``` 
+2. Running the web app
+    * create new terminal 
+        ```bash 
+            ctrl + shift + ,
+        ```
+    * Go to msm-app folder
+        ```bash
+            cd msm-app
+        ```
+    * Run the web app
+        ```bash
+            npm run dev
+        ```
+    * ctrl + click the link or type this on your browser
+        ```bash
+            http://localhost:5173
+        ```
 
-1. ctrl + j
-2. Install all dependencies first
-```bash
-npm install
-```
-3. Go to msm-app folder
-```bash
-cd msm-app
-```
-4. Run the server.js 
-```bash
-nodemon server/server.js
-``` 
-
-#### Running the web app
-1. create new terminal "ctrl + shift + ,"
-2. type "cd msm-app" (like what you did earlier to the server)
-3. Run the web app "npm run dev"
-
-![runDevDemo](./msm-app/src/components/dashboard/images/runDevDemo.png)
-
-4. ctrl + click the link "http://localhost:5173" or type localhost:5173 on your browser
 
 
 
