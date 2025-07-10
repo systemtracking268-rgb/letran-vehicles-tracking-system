@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState } from 'react';
 import User from "./user";
 import Admin from './admin';
@@ -23,7 +24,6 @@ function Login() {
     } else {
       setCurrentView('user');
   };
-
 }
 
 

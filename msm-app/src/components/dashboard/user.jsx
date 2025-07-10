@@ -5,7 +5,6 @@ import OilChangeMonitor from "../mapcomponents/oilchange";
 import Gps from "../mapcomponents/gps";
 import Logo from "./images/logo.png"
 
-
 function Driver(){
     return(
         <div className="flex h-screen bg-gray-900 justify-center">
