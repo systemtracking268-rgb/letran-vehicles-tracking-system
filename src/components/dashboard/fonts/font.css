@@ -1,0 +1,14 @@
+/* src/assets/fonts/fonts.css */
+@font-face {
+  font-family: 'absenderFont';
+  src: url('./absender1.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'collegeFont';
+  src: url('./collegec.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
