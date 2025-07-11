@@ -7,7 +7,7 @@ import SpeedMonitor from "../mapcomponents/speed";
 import EngineStatus from "../mapcomponents/engineStatus";
 import Header from "../mapcomponents/header";
 
-function Driver() {
+function Driver({onLogout}) {
   const [telemetry, setTelemetry] = useState({
     latitude: null,
     longitude: null,
@@ -40,7 +40,7 @@ function Driver() {
 
   return (
     <div className="flex flex-col w-full">
-        <Header/>
+      <Header onLogout={onLogout} />
         <div className="relative">
             <Gps latitude={telemetry.latitude} longitude={telemetry.longitude} />
             <div className="absolute bottom-0 left-50 z-999"><SpeedMonitor speed={telemetry.speed} /></div>
