@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import User from "./user";
-import Admin from './admin';
 import Logo from "./images/logo.png";
 
 function Login() {
@@ -8,6 +7,7 @@ function Login() {
   const [currentView, setCurrentView] = useState(''); // 'login' | 'user' | 'admin'
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError]= useState('');
 
   // Check if user already logged in on mount
   useEffect(() => {
@@ -28,19 +28,23 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Simple check - replace with your actual auth logic
-    if (username.trim().toLowerCase() === 'admin') {
-      localStorage.setItem('loggedInUser', 'admin');
-      setCurrentView('admin');
-    } else {
+    if (username.trim().toLowerCase() === 'user') {
       localStorage.setItem('loggedInUser', username.trim());
       setCurrentView('user');
+      setError('');
+    } else {
+      setError('Use "user" to login. "admin" is no longer valid.');
     }
   };
 
-  // Show different views
-  if (currentView === 'user') return <User />;
-  if (currentView === 'admin') return <Admin />;
+  {error && (
+    <p className="text-red-600 text-sm font-medium">
+      {error}
+    </p>
+  )}
+
+
+  if (currentView === 'user') return <User onLogout={() => setCurrentView('')} />;
 
   return (
     <div className='flex justify-center items-center h-screen bg-gray-900'>
