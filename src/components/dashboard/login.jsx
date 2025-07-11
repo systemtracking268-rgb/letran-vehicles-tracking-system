@@ -40,7 +40,6 @@ function Login() {
 
   // Show different views
   if (currentView === 'user') return <User />;
-  if (currentView === 'admin') return <Admin />;
 
   return (
     <div className='flex justify-center items-center h-screen bg-gray-900'>

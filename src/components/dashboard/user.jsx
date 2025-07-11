@@ -24,7 +24,8 @@ function Driver() {
           latitude: latitude || 14.5933,
           longitude: longitude || 120.9767,
           speed: speed || 0,
-          engineStatus: engineStatus || 'Unknown'
+          engineStatus: engineStatus,
+
 
         });
       } catch (error) {
