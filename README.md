@@ -1,6 +1,6 @@
 # Colegio de San Juan de Letran Vehicles
 
-![cdDemo](./msm-app/src/components/dashboard/images/screenDemo.png)
+![cdDemo](./src/components/dashboard/images/screenDemo.png)
 
 ### This website is equipped with orange-pi for data gathering and api(not updated yet) for data storage
 
@@ -29,10 +29,6 @@
         ```bash
             npm install
         ```
-    * Go to msm-app folder
-        ```bash
-            cd msm-app
-        ```
     * Run the server.js
         ```bash
             nodemon server/server.js
@@ -41,10 +37,6 @@
     * create new terminal 
         ```bash 
             ctrl + shift + ,
-        ```
-    * Go to msm-app folder
-        ```bash
-            cd msm-app
         ```
     * Run the web app
         ```bash
@@ -62,8 +54,3 @@
         ```bash
             Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
         ```
-
-
-
-
->>>>>>> 069b6f354cc01422e34319e9d5c8a65cc6ef5c4d
