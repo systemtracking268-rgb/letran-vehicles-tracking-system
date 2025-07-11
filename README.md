@@ -1,12 +1,56 @@
-# React + Vite
+# Colegio de San Juan de Letran Vehicles
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![cdDemo](./src/components/dashboard/images/screenDemo.png)
 
-Currently, two official plugins are available:
+### This website is equipped with orange-pi for data gathering and api(not updated yet) for data storage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Download & Extraction
 
-## Expanding the ESLint configuration
+1. Install Node.Js 
+    * ```bash
+            https://nodejs.org/en
+        ```
+2. Clone or Download the repository
+3. Extract the files
+4. Once extracted find the root folder then drag it outside
+    * CDSJDLV-master > CDSJDLV-master(drag this one out)
+5. Open Visual Studio Code
+6. Select the folder "CDSJDLV-master" the folder you drag outside
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+# Set Up
+1. Running the server
+    * ctrl + j
+    * install nodemon
+        ```bash
+            npm i -g nodemon
+        ```
+    * Install all dependencies
+        ```bash
+            npm install
+        ```
+    * Run the server.js
+        ```bash
+            nodemon server/server.js
+        ``` 
+2. Running the web app
+    * create new terminal 
+        ```bash 
+            ctrl + shift + ,
+        ```
+    * Run the web app
+        ```bash
+            npm run dev
+        ```
+    * ctrl + click the link or type this on your browser
+        ```bash
+            http://localhost:5173
+        ```
+
+# Note
+1. Make sure you installed Node.Js
+2. if npm is error you must first bypass your system using poweshell
+    * search powershell in your laptop then type this
+        ```bash
+            Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+        ```
