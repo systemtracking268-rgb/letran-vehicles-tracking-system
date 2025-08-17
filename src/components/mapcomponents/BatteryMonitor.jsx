@@ -1,7 +1,7 @@
 import { RadialBarChart, RadialBar, Tooltip } from "recharts";
 
-function BatteryMonitor() {
-  const batteryLevel = 76; // Example battery percentage
+function BatteryMonitor({battery}) {
+  const batteryLevel = battery; // Example battery percentage
   const lowThreshold = 20;
   const highThreshold = 90;
   const isLow = batteryLevel < lowThreshold;
@@ -26,8 +26,8 @@ function BatteryMonitor() {
 
       <div className="flex justify-center relative">
         <RadialBarChart
-          width={200}
-          height={200}
+          width={100}
+          height={100}
           innerRadius="70%"
           outerRadius="90%"
           barSize={8}

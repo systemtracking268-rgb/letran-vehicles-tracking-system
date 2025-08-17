@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import TirePressure from "../mapcomponents/tirepressure";
+import BatteryMonitor from "../mapcomponents/BatteryMonitor";
 import OilChangeMonitor from "../mapcomponents/oilchange";
 import Gps from "../mapcomponents/gps";
 import SpeedMonitor from "../mapcomponents/speed";
@@ -69,6 +69,7 @@ function Driver({onLogout}) {
             <>
               <Gps latitude={telemetry.latitude} longitude={telemetry.longitude} />
               <div className="absolute bottom-0 left-50 z-999"><SpeedMonitor speed={telemetry.speed} /></div>
+              <div className="absolute bottom-0 left-84 z-999"><BatteryMonitor battery={76} /></div>
               <div className="absolute z-999 left-50 top-0"><EngineStatus status={telemetry.engineStatus} /></div>
             </>
           )}
