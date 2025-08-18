@@ -65,7 +65,7 @@ fetchFlespiData();
 
 // Set up a recurring interval to fetch data every 10 seconds (10000 milliseconds)
 // This ensures that 'latestTelemetryData' is always kept up-to-date.
-setInterval(fetchFlespiData, 10000); // Adjust this interval as needed (e.g., 5000 for 5 seconds)
+setInterval(fetchFlespiData, 1000); // Adjust this interval as needed (e.g., 5000 for 5 seconds)
 // --- End continuous data fetching ---
 
 
@@ -78,6 +78,6 @@ app.get('/api/telemetry', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
-    console.log('Flespi data will be fetched and updated every 10 seconds.');
+    console.log('Flespi data will be fetched and updated every second.');
 });
 
