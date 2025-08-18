@@ -1,7 +1,10 @@
 // server.js (ES module syntax)
 import express from 'express';
 import cors from 'cors';
-import fetch from 'node-fetch'; // node-fetch supports ES module syntax directly
+import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -9,8 +12,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const FLESPI_API_URL = 'https://flespi.io/gw/devices/6578123/telemetry/all';
-const FLESPI_AUTH_TOKEN = 'FlespiToken JYMvA6dfZF1Aydwgc96q08kbUSS8i1G26JuPmW12d3hVWMshKWirUFHLJIP3gJZY'; // IMPORTANT: In a production environment, store this securely (e.g., environment variables)
+const FLESPI_API_URL = process.env.FLESPI_API_URL;
+const FLESPI_AUTH_TOKEN = process.env.FLESPI_AUTH_TOKEN;
 
 // Variable to store the latest telemetry data, initialized with default values
 let latestTelemetryData = {
