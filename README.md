@@ -2,11 +2,11 @@
 
 ![cdDemo](./src/components/dashboard/images/screenDemo.png)
 
-### This website is equipped with orange-pi for data gathering and api(not updated yet) for data storage
-
+### This website is equipped sinotrack for gathering data and accessible using flespi via api
+ 
 # Download & Extraction
 
-1. Install Node.Js 
+1. Install Node.Js (If not done yet)
     * ```bash
             https://nodejs.org/en
         ```

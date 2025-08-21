@@ -30,7 +30,7 @@ export default function Gps({ latitude, longitude }) {
 
   return (
     <div className="w-full z-999 px-50 ">
-      <MapContainer center={position} zoom={16} className="h-[35rem] w-full rounded-lg">
+      <MapContainer center={position} zoom={16} className="h-[32rem] w-full rounded-lg">
         <ChangeView center={position} />
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Marker position={position} icon={customIcon}>

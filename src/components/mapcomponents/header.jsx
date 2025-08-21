@@ -10,7 +10,7 @@ export default function Header({ onLogout }){
 
     return(
         <div className="flex z-999 items-center">
-            <div className="sticky top-0 flex space-x-2 items-center py-4  w-full justify-center">
+            <div className="sticky top-0 flex space-x-2 items-center py-4  w-full sm:pl-50">
                 <img src={Logo} alt="" className="w-[3rem] h-[3rem]" />
                 <h6 className="text-4xl font-[collegeFont] text-white">
                     Colegio de San Juan de Letran Vehicles
