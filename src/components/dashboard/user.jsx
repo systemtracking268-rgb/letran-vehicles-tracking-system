@@ -14,10 +14,13 @@ function Driver({onLogout}) {
     speed: 0
   });
 
+  const API_URL = import.meta.env.VITE_API_URL;
+  console.log("API_URL:", API_URL);
+
   useEffect(() => {
     const fetchTelemetry = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/telemetry");
+        const res = await axios.get(API_URL);
         const { latitude, longitude, speed, engineStatus  } = res.data;
 
         setTelemetry({
