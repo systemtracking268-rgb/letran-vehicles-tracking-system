@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -44,7 +45,7 @@ const fetchFlespiData = async () => {
         const data = await response.json();
 
         const telemetry = data.result && data.result.length > 0 ? data.result[0].telemetry : null;
-
+      
         if (telemetry) {
             latestTelemetryData = {
                 latitude: telemetry['position.latitude'] ? telemetry['position.latitude'].value : null,
