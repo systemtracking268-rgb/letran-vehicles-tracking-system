@@ -12,4 +12,7 @@
 
 ## Realtime API Update
 
-- Update flespi API every certain amount of seconds. (Done)
+- Change into websocket instead of polling. (Done)
+
+## Overspeeding depending on the location
+

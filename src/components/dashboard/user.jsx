@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import BatteryMonitor from "../mapcomponents/BatteryMonitor";
 import OilChangeMonitor from "../mapcomponents/oilchange";
 import Gps from "../mapcomponents/gps";
@@ -9,11 +8,12 @@ import Header from "../mapcomponents/header";
 import HistoryComponent from "../mapcomponents/history";
 import Login from "./login";
 
-function Driver({onLogout}) {
+function Driver({ onLogout }) {
   const [telemetry, setTelemetry] = useState({
     latitude: null,
     longitude: null,
-    speed: 0
+    speed: 0,
+    engineStatus: "Unknown",
   });
 
   const [activeButton, setActiveButton] = useState('v1');
@@ -27,33 +27,24 @@ function Driver({onLogout}) {
       onLogout();
   };
 
-
   useEffect(() => {
-    setloading(true);
-    const fetchTelemetry = async () => {
-      try {
-        const res = await axios.get(API_URL);
-        const { latitude, longitude, speed, engineStatus  } = res.data;
+    const socket = new WebSocket(WS_URL);
 
-        setTelemetry({
-          latitude: latitude || 14.5933,
-          longitude: longitude || 120.9767,
-          speed: speed || 0,
-          engineStatus: engineStatus,
-        });
-      } catch (error) {
-        console.error("Failed to fetch telemetry:", error);
-      } finally {
-        setTimeout(() => {
-          setloading(false);
-        }, 1000); // Simulate loading delay
-        // setloading(false);
-      }
+    socket.onopen = () => {
+      console.log("Connected to WebSocket server");
+    };
+    
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setTelemetry(data);
+      setLoading(false);
     };
 
-    fetchTelemetry();
-    const interval = setInterval(fetchTelemetry, 3000);
-    return () => clearInterval(interval);
+    socket.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+
+    return () => socket.close();
   }, [activeButton]);
 
   return (
