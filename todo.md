@@ -1,6 +1,6 @@
 ## SMS Alert for:
 
-- Overspeed. Message: "Vehicle [Vehicle ID] is overspeeding! Current Speed: [Speed] km/h. Limit: [Speed Limit] km/h."
+- Overspeed. Message: "Vehicle [Vehicle ID] is exceeding the speed limit for its location. Current Speed: [Speed] km/h. Limit: [Speed Limit] km/h."
 
 - Engine turned off and on. Message: "Ignition [ON/OFF] for Vehicle [Vehicle ID] at [Timestamp]."
 
@@ -8,7 +8,7 @@
 
 ## Database Connection
 
-- DB for speeding alerts, batt condition, ignition status, and realtime location.
+- DB for speeding alerts, batt condition, ignition status, and realtime location.(Done)
 
 ## Realtime API Update
 
