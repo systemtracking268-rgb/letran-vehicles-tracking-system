@@ -1,4 +1,3 @@
-// server.js (modified)
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
@@ -20,7 +19,7 @@ const {
   APP_ID,
 } = process.env;
 
-// --- Firebase Setup --- 👈 New section
+// --- Firebase Setup ---
 const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
@@ -94,52 +93,45 @@ async function saveTelemetryToFirebase(data) {
   }
 }
 
-// Assuming 'db' is your initialized Firestore instance
-// const db = getFirestore(app);
-
-// Function to read all tracking data from a collection using the client-side SDK
+// Function to read all tracking data from a collection
 async function getAllTelemetryData() {
   console.log("Starting to fetch all documents from Firestore...");
   
-    // Get a reference to the 'telemetry-data' collection
-    const telemetryCollectionRef = collection(db, "telemetry-data");
+  const telemetryCollectionRef = collection(db, "telemetry-data");
   
-    try {
-      // Fetch all documents from the collection
-      const querySnapshot = await getDocs(telemetryCollectionRef);
-  
-      if (querySnapshot.empty) {
-        console.log("No documents found in the collection.");
-        return;
-      }
-  
-      const extractedData = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        
-        // Extract only the desired attributes
-        extractedData.push({
-          id: doc.id,
-          deviceID: data.deviceID,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          speed: data.speed,
-          timestamp: data.timestamp,
-        });
-      });
-  
-      console.log("Successfully fetched documents:");
-      console.log(extractedData);
-      
-      // You can return the data if you need to use it elsewhere
-      return extractedData;
-  
-    } catch (error) {
-      console.error("Error getting documents:", error);
+  try {
+    const querySnapshot = await getDocs(telemetryCollectionRef);
+    
+    if (querySnapshot.empty) {
+      console.log("No documents found in the collection.");
+      return [];
     }
+    
+    const extractedData = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      
+      // Extract only the desired attributes
+      extractedData.push({
+        id: doc.id,
+        deviceID: data.deviceID,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        speed: data.speed,
+        timestamp: data.timestamp,
+      });
+    });
+    
+    console.log("Successfully fetched documents:");
+    console.log(extractedData);
+    
+    return extractedData;
+    
+  } catch (error) {
+    console.error("Error getting documents:", error);
+    return [];
+  }
 }
-
-
 
 // Function to fetch Flespi telemetry
 const fetchFlespiData = async () => {
@@ -165,11 +157,9 @@ const fetchFlespiData = async () => {
     if (telemetry) {
       const lat = telemetry["position.latitude"]?.value ?? null;
       const long = telemetry["position.longitude"]?.value ?? null;
-
       const speed = telemetry["position.speed"]?.value ?? 0;
       const speedLimitValue = locationSpeedLimit(lat, long);
       const isOverspeeding = speed > speedLimitValue;
-
       const batteryValue = telemetry["device.battery"]?.value ?? DEFAULT_BATTERY_VOLTAGE;
       
       // Update latest telemetry data
@@ -192,11 +182,9 @@ const fetchFlespiData = async () => {
         isBatteryLow: batteryValue < LOW_BATTERY_THRESHOLD
       };
 
-      // Save to Firebase at the same time Flespi data is fetched 👈 New line
+      // Save to Firebase
       await saveTelemetryToFirebase(latestTelemetryData);
 
-      // Call the function
-      getAllTelemetryData();
       // 🔥 Broadcast updated telemetry to all WebSocket clients
       broadcast(JSON.stringify(latestTelemetryData));
     }
@@ -204,6 +192,18 @@ const fetchFlespiData = async () => {
     console.error("Error fetching Flespi data:", error);
   }
 };
+
+// --- New Endpoint for Historical Data ---
+app.get('/api/telemetry', async (req, res) => {
+  try {
+    const allData = await getAllTelemetryData();
+    res.json(allData);
+  } catch (error) {
+    console.error("Error fetching telemetry data from API:", error);
+    res.status(500).json({ error: "Failed to fetch telemetry data." });
+  }
+});
+// --- End New Endpoint ---
 
 // Start Express server
 const server = app.listen(PORT, () => {
@@ -229,5 +229,5 @@ function broadcast(message) {
   });
 }
 
-// Fetch Flespi every 1 second
+// Fetch Flespi every 5 seconds
 setInterval(fetchFlespiData, 5000);
