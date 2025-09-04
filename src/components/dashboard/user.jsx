@@ -8,12 +8,20 @@ import Header from "../mapcomponents/header";
 import HistoryComponent from "../mapcomponents/history";
 import Login from "./login";
 
+const DEFAULT_BATTERY_VOLTAGE = 12.5;
+
 function Driver({ onLogout }) {
   const [telemetry, setTelemetry] = useState({
     latitude: null,
     longitude: null,
     speed: 0,
     engineStatus: "Unknown",
+    deviceID: "N/A",
+    positionDirection: 0,
+    vehicleStateBitmask: "Unknown",
+    timestamp: 1756777940,
+    battery: DEFAULT_BATTERY_VOLTAGE,
+    isBatteryLow: false,
   });
 
   const [activeButton, setActiveButton] = useState('v1');
@@ -28,7 +36,7 @@ function Driver({ onLogout }) {
   };
 
   useEffect(() => {
-    const socket = new WebSocket(WS_URL);
+    const socket = new WebSocket(API_URL);
 
     socket.onopen = () => {
       console.log("Connected to WebSocket server");
@@ -67,7 +75,7 @@ function Driver({ onLogout }) {
                 <div className="flex flex-wrap w-full justify-center items-center gap-4 mt-4">
                   <div className=" z-999 left-50 top-0"><EngineStatus status={telemetry.engineStatus} /></div>        
                   <div className=" bottom-0 left-50 z-999"><SpeedMonitor speed={telemetry.speed} /></div>
-                  <div className=" bottom-0 left-84 z-999"><BatteryMonitor battery={76} /></div>
+                  <div className=" bottom-0 left-84 z-999"><BatteryMonitor battery={telemetry.battery} isBatteryLow={telemetry.isBatteryLow}/></div>
                 </div>
               </div>
 

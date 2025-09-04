@@ -1,21 +1,21 @@
 import { RadialBarChart, RadialBar, Tooltip } from "recharts";
 
-function BatteryMonitor({battery}) {
-  const batteryLevel = battery; // Example battery percentage
-  const lowThreshold = 20;
-  const highThreshold = 90;
-  const isLow = batteryLevel < lowThreshold;
-  const isHigh = batteryLevel > highThreshold;
+function BatteryMonitor({ battery, isBatteryLow }) {
+  const batteryVolts = battery;
+
+  // The fill color is now determined directly by the isBatteryLow prop.
+  // The threshold logic is handled by the parent component, which passes the boolean.
+  const fillColor = isBatteryLow ? "#FF0000" : "#008000";
 
   const data = [
     {
       name: "Battery Level",
-      value: batteryLevel,
-      fill: isLow || isHigh ? "#FF0000" : "#008000", // Red if out of range, green otherwise
+      value: batteryVolts,
+      fill: fillColor,
     },
     {
       name: "Max",
-      value: 100,
+      value: 14.5, // A typical maximum voltage for a car battery
       fill: "#A9A9A9", // Reference gray bar
     },
   ];
@@ -33,24 +33,20 @@ function BatteryMonitor({battery}) {
           barSize={8}
           data={data}
           startAngle={90}
-          endAngle={-270}
+          endAngle={-360}
         >
           <RadialBar dataKey="value" />
-          <Tooltip />
+          <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', background: 'rgba(255,255,255,0.9)' }} />
         </RadialBarChart>
 
         {/* Battery Level Display (Centered) */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <p className="font-bold">{batteryLevel}%</p>
+          <p className="font-bold">{batteryVolts}V</p>
         </div>
       </div>
 
       <p className="text-center font-bold">
-        {isLow
-          ? "⚠️ Low Battery!"
-          : isHigh
-          ? "⚠️ Charging Complete!"
-          : "🔋 Normal"}
+        {isBatteryLow ? "⚠️ Low Battery!" : "🔋 Normal"}
       </p>
     </div>
   );
