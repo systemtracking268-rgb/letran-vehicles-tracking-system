@@ -123,7 +123,7 @@ async function getAllTelemetryData() {
     });
     
     console.log("Successfully fetched documents:");
-    console.log(extractedData);
+    // console.log(extractedData);
     
     return extractedData;
     
@@ -183,7 +183,7 @@ const fetchFlespiData = async () => {
       };
 
       // Save to Firebase
-      await saveTelemetryToFirebase(latestTelemetryData);
+      // await saveTelemetryToFirebase(latestTelemetryData);
 
       // 🔥 Broadcast updated telemetry to all WebSocket clients
       broadcast(JSON.stringify(latestTelemetryData));

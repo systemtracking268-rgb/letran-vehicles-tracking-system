@@ -9,6 +9,7 @@
 ## Database Connection
 
 - DB for speeding alerts, batt condition, ignition status, and realtime location.(Done)
+- Could add a refresh button for history or automatically poll it after every second.
 
 ## Realtime API Update
 
