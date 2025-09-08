@@ -9,7 +9,15 @@ function Login() {
   const [currentView, setCurrentView] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError]= useState('');
+
+  const resetFields = () => {
+    setUsername('');
+    setPassword('');
+    setEmail('');
+    setError('');
+  };
 
   useEffect(() => {
     const savedUser = localStorage.getItem('loggedInUser');
@@ -19,26 +27,74 @@ function Login() {
 
   const handleRegisterClick = (e) => {
     e.preventDefault();
+    resetFields();
     setShowRegister(true);
   };
 
   const handleBackToLogin = () => {
+    resetFields();
     setShowRegister(false);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      localStorage.setItem("loggedInUser", data.user.username);
+      setCurrentView("user");
+      setError("");
+    } else {
+      setError(data.message || "Login failed");
+    }
+  } catch (err) {
+    console.error("Login request failed:", err);
+    setError("Server error, try again later");
+  }
+};
+
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (username.trim().toLowerCase() === 'user') {
-      localStorage.setItem('loggedInUser', username.trim());
-      setCurrentView('user');
-      setError('');
-    } else {
-      setError('Use "user" to login. "admin" is no longer valid.');
+    try {
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setError("✅ Registration success. Logging in...");
+        
+        // small delay before logging in
+        setTimeout(() => {
+          localStorage.setItem("loggedInUser", data.user.username);
+          setCurrentView("user");
+          resetFields();
+        }, 2000);
+      } else {
+        setError(data.message || "Register failed");
+      }
+    } catch (err) {
+      console.error("Register request failed:", err);
+      setError("Server error, try again later");
     }
   };
 
-  if (currentView === 'user') return <User onLogout={() => setCurrentView('')} />;
+
+
+
+  if (currentView === 'user') return <User onLogout={() => { setCurrentView(''); resetFields(); }} />;
 
   return (
     <div className="relative flex items-center justify-center h-screen w-screen">
@@ -60,10 +116,17 @@ function Login() {
             </div>
 
             {error && (
-              <p className="text-red-600 text-sm font-medium mb-3">{error}</p>
+              <p
+                className={`text-sm font-medium mb-3 ${
+                  error.startsWith("✅") ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {error}
+              </p>
             )}
 
-            <form onSubmit={handleLogin} className="space-y-4">
+
+            <form onSubmit={showRegister ? handleRegister : handleLogin} className="space-y-4">
               <input
                 type="text"
                 placeholder="Username"
@@ -84,6 +147,8 @@ function Login() {
                 <input
                   type="email"
                   placeholder="Email"
+                  value={email}                    // ✅ linked to state
+                  onChange={(e) => setEmail(e.target.value)}  // ✅ update state
                   className="h-10 w-full border border-gray-300 text-sm rounded-lg px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />

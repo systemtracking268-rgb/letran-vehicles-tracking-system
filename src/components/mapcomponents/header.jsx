@@ -4,6 +4,8 @@ import userIcon from "../dashboard/images/usericon.webp";
 
 export default function Header(){
 
+    const username = localStorage.getItem("loggedInUser");
+
     return(
         <div className="flex z-999 items-center px-10 bg-blue-700 justify-between">
             <div className="sticky top-0 flex space-x-2 items-center py-4  w-full">
@@ -17,7 +19,7 @@ export default function Header(){
                 <span>
                     <img src={userIcon} alt="" className="h-12 w-12"/>
                 </span>
-                User Name Here
+                {username}
             </h1>
         </div>
     );

@@ -193,7 +193,7 @@ const fetchFlespiData = async () => {
   }
 };
 
-// --- New Endpoint for Historical Data ---
+// --- Historical Data Endpoint---
 app.get('/api/telemetry', async (req, res) => {
   try {
     const allData = await getAllTelemetryData();
@@ -204,6 +204,71 @@ app.get('/api/telemetry', async (req, res) => {
   }
 });
 // --- End New Endpoint ---
+
+// --- Login Endpoint ---
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ success: false, message: "Username and password required" });
+  }
+
+  try {
+    const usersRef = collection(db, "user");
+    const snapshot = await getDocs(usersRef);
+
+    let foundUser = null;
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.username === username && data.password === password) {
+        foundUser = { id: doc.id, ...data };
+      }
+    });
+
+    if (foundUser) {
+      return res.json({ success: true, user: foundUser });
+    } else {
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+// --- End Login Endpoint ---
+
+// --- Register Endpoint ---
+app.post('/api/register', async (req, res) => {
+  const { username, password, email } = req.body;
+
+  if (!username || !password || !email) {
+    return res.status(400).json({ success: false, message: "All fields are required" });
+  }
+
+  try {
+    const usersRef = collection(db, "user");
+    const snapshot = await getDocs(usersRef);
+
+    let exists = false;
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.username === username) exists = true;
+    });
+
+    if (exists) {
+      return res.status(409).json({ success: false, message: "Username already taken" });
+    }
+
+    const newUser = { username, password, email };
+    await addDoc(usersRef, newUser);
+
+    return res.json({ success: true, user: newUser });
+  } catch (error) {
+    console.error("Register error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+});
 
 // Start Express server
 const server = app.listen(PORT, () => {
