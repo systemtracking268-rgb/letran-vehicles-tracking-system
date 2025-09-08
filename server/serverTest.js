@@ -61,7 +61,7 @@ function convertTimestampToDate(unixTimestamp) {
   return formattedDate;
 }
 
-// 🚦 New function to determine speed limit based on location 
+// 🚦 New function to determine speed limit based on location
 async function locationSpeedLimit(lat, long) {
   if (!lat || !long) {
     console.log("Latitude or Longitude not provided. Using default speed limit.");
@@ -195,66 +195,54 @@ async function getAllTelemetryData() {
   }
 }
 
-// Function to fetch Flespi telemetry
-const fetchFlespiData = async () => {
-  try {
-    const response = await fetch(FLESPI_API_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: FLESPI_AUTH_TOKEN,
-      },
-    });
+/**
+ * 🧪 New function to test the location logic with mock data.
+ * This replaces the Flespi fetching for testing purposes.
+ */
+const testLocationLogic = async () => {
+  console.log("--- Starting mock data test ---");
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`Flespi API error: ${response.status} - ${errorText}`);
-      return;
-    }
+  // Mock data for C. M. Recto Avenue
+  const mockLat1 = 14.6010007;
+  const mockLong1 = 120.9901214;
 
-    const data = await response.json();
-    const telemetry =
-      data.result && data.result.length > 0 ? data.result[0].telemetry : null;
+  // Case 1: Overspeeding on C. M. Recto Avenue (speed > 60)
+  const speed1 = 75;
+  const speedLimit1 = await locationSpeedLimit(mockLat1, mockLong1);
+  const isOverspeeding1 = speed1 > speedLimit1;
+  const overspeedingLocation1 = await overspeedingLocation(isOverspeeding1, mockLat1, mockLong1);
+  console.log(`Test Case 1: C. M. Recto Avenue`);
+  console.log(`Speed: ${speed1} km/h, Speed Limit: ${speedLimit1} km/h`);
+  console.log(`Is Overspeeding: ${isOverspeeding1}, Location: ${overspeedingLocation1}`);
 
-    if (telemetry) {
-      const lat = telemetry["position.latitude"]?.value ?? null;
-      const long = telemetry["position.longitude"]?.value ?? null;
-      const speed = telemetry["position.speed"]?.value ?? 0;
+  console.log("\n");
 
-      const speedLimitValue = await locationSpeedLimit(lat, long);
-      const isOverspeeding = speed > speedLimitValue;
-      const overspeedingLocationValue = await overspeedingLocation(isOverspeeding, lat, long);
-      const batteryValue = telemetry["device.battery"]?.value ?? DEFAULT_BATTERY_VOLTAGE;
-      
-      // Update latest telemetry data
-      latestTelemetryData = {
-        latitude: lat,
-        longitude: long,
-        speed: speed,
-        speedLimit: speedLimitValue,
-        isOverspeeding: isOverspeeding,
-        overspeedingLocation: overspeedingLocationValue,
-        engineStatus:
-          typeof telemetry["engine.ignition.status"]?.value === "boolean"
-            ? telemetry["engine.ignition.status"].value
-              ? "On"
-              : "Off"
-            : "Unknown",
-        deviceID: telemetry["device.id"]?.value ?? "N/A",
-        timestamp: convertTimestampToDate(telemetry["timestamp"]?.value) ?? convertTimestampToDate(DEFAULT_TIMESTAMP),
-        battery: batteryValue,
-        isBatteryLow: batteryValue < LOW_BATTERY_THRESHOLD
-      };
+  // Case 2: Not overspeeding on C. M. Recto Avenue (speed <= 60)
+  const speed2 = 50;
+  const speedLimit2 = await locationSpeedLimit(mockLat1, mockLong1);
+  const isOverspeeding2 = speed2 > speedLimit2;
+  const overspeedingLocation2 = await overspeedingLocation(isOverspeeding2, mockLat1, mockLong1);
+  console.log(`Test Case 2: C. M. Recto Avenue`);
+  console.log(`Speed: ${speed2} km/h, Speed Limit: ${speedLimit2} km/h`);
+  console.log(`Is Overspeeding: ${isOverspeeding2}, Location: ${overspeedingLocation2}`);
 
-      // Save to Firebase
-      // await saveTelemetryToFirebase(latestTelemetryData);
+  console.log("\n");
 
-      // 🔥 Broadcast updated telemetry to all WebSocket clients
-      broadcast(JSON.stringify(latestTelemetryData));
-    }
-  } catch (error) {
-    console.error("Error fetching Flespi data:", error);
-  }
+  // Mock data for a different location not in your JSON
+  // Example: Intramuros area
+  const mockLat3 = 14.5917;
+  const mockLong3 = 120.9767;
+
+  // Case 3: Vehicle on a different road, overspeeding (should use default)
+  const speed3 = 60;
+  const speedLimit3 = await locationSpeedLimit(mockLat3, mockLong3);
+  const isOverspeeding3 = speed3 > speedLimit3;
+  const overspeedingLocation3 = await overspeedingLocation(isOverspeeding3, mockLat3, mockLong3);
+  console.log(`Test Case 3: Other road (Intramuros)`);
+  console.log(`Speed: ${speed3} km/h, Speed Limit: ${speedLimit3} km/h`);
+  console.log(`Is Overspeeding: ${isOverspeeding3}, Location: ${overspeedingLocation3}`);
+
+  console.log("--- Test finished ---");
 };
 
 // --- Historical Data Endpoint---
@@ -337,6 +325,8 @@ app.post('/api/register', async (req, res) => {
 // Start Express server
 const server = app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
+  // Call the test function here when the server starts
+  testLocationLogic();
 });
 
 // --- WebSocket Setup ---
@@ -358,5 +348,5 @@ function broadcast(message) {
   });
 }
 
-// Fetch Flespi every 5 seconds
-setInterval(fetchFlespiData, 5000);
+// Comment out the Flespi fetch interval for testing
+// setInterval(fetchFlespiData, 5000);

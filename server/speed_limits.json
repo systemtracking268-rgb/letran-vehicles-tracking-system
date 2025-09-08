@@ -1,0 +1,37 @@
+{
+    "speedLimits": [
+        {
+            "road": "M. Adriatico Street",
+            "speedLimit": 30
+        },
+        {
+            "road": "Quezon Boulevard",
+            "speedLimit": 40
+        },
+        {
+            "road": "España Boulevard",
+            "speedLimit": 40
+        },
+        {
+            "road": "Mel Lopez Boulevard",
+            "speedLimit": 40
+        },
+        {
+            "road": "C. M. Recto Avenue",
+            "speedLimit": 60
+        },
+        {
+            "road": "Legarda Street",
+            "speedLimit": 60
+        },
+        {
+            "road": "Taft Avenue",
+            "speedLimit": 60
+        },
+        {
+            "road": "Roxas Boulevard Service Road",
+            "speedLimit": 60
+        }
+    ],
+    "default": 40
+}
