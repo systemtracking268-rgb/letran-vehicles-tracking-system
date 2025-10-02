@@ -29,8 +29,8 @@ export default function Gps({ latitude, longitude }) {
       : defaultPosition;
 
   return (
-    <div className="w-full z-999 px-50 ">
-      <MapContainer center={position} zoom={16} className="h-[32rem] w-full rounded-lg">
+    <div className="w-full z-999">
+      <MapContainer center={position} zoom={16} className="h-[30rem] w-full rounded-lg">
         <ChangeView center={position} />
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Marker position={position} icon={customIcon}>
