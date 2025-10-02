@@ -60,7 +60,7 @@ function Driver({ onLogout }) {
     const fetchHistoricalData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/telemetry');
+        const response = await fetch(API_URL + '/api/telemetry');
         if (!response.ok) {
           throw new Error('Failed to fetch historical data');
         }
